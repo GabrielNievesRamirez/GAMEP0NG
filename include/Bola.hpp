@@ -9,7 +9,7 @@ public:
     void actualizar();
     void dibujar(sf::RenderWindow& ventana);
     void rebotar(const sf::Sprite& paletaD, const sf::Sprite& paletaI);
-    sf::Sprite& getSprite();
+    const sf::Sprite& getSprite() const;
 
 private:
     sf::Texture bolaT;

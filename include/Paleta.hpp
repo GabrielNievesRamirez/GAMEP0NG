@@ -5,10 +5,10 @@
 
 class Paleta {
 public:
-    Paleta(float posX, float posY, float rot);
+    Paleta(float x, float y, float rotacion);
     void actualizar(bool arriba, bool abajo);
     void dibujar(sf::RenderWindow& ventana);
-    sf::Sprite& getSprite();
+    const sf::Sprite& getSprite() const;
 
 private:
     sf::Texture paletaT;

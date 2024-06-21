@@ -5,12 +5,14 @@
 
 class Marcador {
 public:
-    Marcador(sf::Font& fuente);
+    Marcador();
     void actualizar(int contD, int contI);
     void dibujar(sf::RenderWindow& ventana);
 
 private:
-    sf::Text cD, cI;
+    sf::Font fuente;
+    sf::Text cD;
+    sf::Text cI;
 };
 
 #endif // MARCADOR_HPP

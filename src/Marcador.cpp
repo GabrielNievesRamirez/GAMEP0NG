@@ -1,26 +1,28 @@
+#include <iostream> // Agregar esta línea para std::cerr
 #include "Marcador.hpp"
 
 Marcador::Marcador() {
-    // Constructor de la clase Marcador
+    // Cargar la fuente por defecto de SFML
+    if (!fuente.loadFromFile("arial.ttf")) {
+        std::cerr << "Error al cargar la fuente" << std::endl;
+        std::exit(1);
+    }
+
+    cD.setFont(fuente);
+    cD.setCharacterSize(40);
+    cD.setPosition(600, 25);
+
+    cI.setFont(fuente);
+    cI.setCharacterSize(40);
+    cI.setPosition(200, 25);
 }
 
-void Marcador::setPosition(float x, float y) {
-    texto.setPosition(x, y);
+void Marcador::actualizar(int contD, int contI) {
+    cD.setString(std::to_string(contD));
+    cI.setString(std::to_string(contI));
 }
 
-void Marcador::setFont(const sf::Font& font) {
-    fuente = font;
-    texto.setFont(fuente);
-}
-
-void Marcador::setCharacterSize(unsigned int size) {
-    texto.setCharacterSize(size);
-}
-
-void Marcador::setString(const std::string& str) {
-    texto.setString(str);
-}
-
-void Marcador::draw(sf::RenderWindow& ventana) const {
-    ventana.draw(texto);
+void Marcador::dibujar(sf::RenderWindow& ventana) {
+    ventana.draw(cD);
+    ventana.draw(cI);
 }

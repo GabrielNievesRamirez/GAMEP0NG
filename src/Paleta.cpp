@@ -1,38 +1,30 @@
+#include <iostream> 
 #include "Paleta.hpp"
 
-Paleta::Paleta() {
-    // Constructor de la clase Paleta
+Paleta::Paleta(float x, float y, float rotacion) {
+    if (!paletaT.loadFromFile("build/assets/paddle.png")) {
+        std::cout << "Error al cargar textura Paleta" << std::endl;
+    }
+
+    paleta.setTexture(paletaT);
+    paleta.setOrigin(paletaT.getSize().x / 2.f, paletaT.getSize().y / 2.f);
+    paleta.setRotation(rotacion);
+    paleta.setPosition(x, y);
 }
 
-void Paleta::setPosition(float x, float y) {
-    sprite.setPosition(x, y);
+void Paleta::actualizar(bool arriba, bool abajo) {
+    if (arriba && paleta.getPosition().y > 0) {
+        paleta.move(0, -4);
+    }
+    if (abajo && paleta.getPosition().y < 500) {
+        paleta.move(0, 4);
+    }
 }
 
-void Paleta::setTexture(const sf::Texture& texture) {
-    textura = texture;
-    sprite.setTexture(textura);
+void Paleta::dibujar(sf::RenderWindow& ventana) {
+    ventana.draw(paleta);
 }
 
-void Paleta::move(float offsetX, float offsetY) {
-    sprite.move(offsetX, offsetY);
-}
-
-sf::Vector2f Paleta::getPosition() const {
-    return sprite.getPosition();
-}
-
-sf::FloatRect Paleta::getGlobalBounds() const {
-    return sprite.getGlobalBounds();
-}
-
-void Paleta::draw(sf::RenderWindow& ventana) const {
-    ventana.draw(sprite);
-}
-
-void Paleta::aumentarPuntos() {
-    contPuntos++;
-}
-
-int Paleta::getPuntos() const {
-    return contPuntos;
+const sf::Sprite& Paleta::getSprite() const {
+    return paleta;
 }

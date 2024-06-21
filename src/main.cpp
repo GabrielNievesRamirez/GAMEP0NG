@@ -1,8 +1,11 @@
-#include <iostream>
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include "Bola.hpp"
+#include "Paleta.hpp"
+#include "Marcador.hpp"
 
-using namespace std;
 using namespace sf;
+using namespace std;
 
 // Declaración de variables globales
 Texture bolaT;
@@ -11,8 +14,6 @@ RenderWindow ventana;
 
 float velX = 2;
 float velY = 2;
-int contD = 0;
-int contI = 0;
 
 int main() {
     // Cargar texturas
@@ -63,17 +64,11 @@ int main() {
         if (paletaD.getGlobalBounds().contains(bola.getPosition()) || paletaI.getGlobalBounds().contains(bola.getPosition())) {
             velX *= -1;
         } else if (bola.getPosition().x > 850) {
-            contI++;
             velX *= -1;
             bola.setPosition(425, 250);
-            // Actualizar contador
-            // cI.setString(to_string(contI));
         } else if (bola.getPosition().x < 0) {
-            contD++;
             velX *= -1;
             bola.setPosition(425, 250);
-            // Actualizar contador
-            // cD.setString(to_string(contD));
         }
 
         if (bola.getPosition().y > 500 || bola.getPosition().y < 0) {
@@ -100,7 +95,6 @@ int main() {
         ventana.draw(bola);
         ventana.draw(paletaD);
         ventana.draw(paletaI);
-        // No dibujar textos porque no se está utilizando la fuente
         ventana.display();
     }
 
