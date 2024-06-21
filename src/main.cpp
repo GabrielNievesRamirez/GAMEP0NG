@@ -29,7 +29,7 @@ int main() {
         cout << "Error al cargar textura Paleta" << endl;
     }
 
-    if (!fuente.loadFromFile("assets/font/pixelart.ttf")) {
+    if (!fuente.loadFromFile("C:/windows/Fonts/White Love TTF")) {
         cout << "Error al cargar Fuente Pixel Art" << endl;
     }
 

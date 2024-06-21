@@ -1,42 +1,24 @@
+# Makefile para compilar el proyecto Pong
+
+# Compilador y banderas
 CXX = g++
 CXXFLAGS = -std=c++11 -Iinclude
-LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
-# Directorios
+# Archivos y directorios
 SRCDIR = src
 OBJDIR = obj
 BINDIR = bin
-ASSETSDIR = assets
-
-# Archivos fuente y objetos
 SOURCES = $(wildcard $(SRCDIR)/*.cpp)
-OBJECTS = $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SOURCES))
+OBJECTS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
+EXECUTABLE = $(BINDIR)/juego
 
-# Nombre del ejecutable
-TARGET = $(BINDIR)/juego
+# Reglas de construcción
+$(EXECUTABLE): $(OBJECTS)
+    $(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXECUTABLE) -lsfml-graphics -lsfml-window -lsfml-system
 
-# Regla principal para construir el ejecutable
-all: $(TARGET)
-
-# Regla para compilar cada archivo objeto
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+    $(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Regla para enlazar el ejecutable final
-$(TARGET): $(OBJECTS)
-	$(CXX) $(OBJECTS) -o $(TARGET) $(LIBS)
-
-# Regla para copiar assets al directorio bin/
-assets:
-	cp -r $(ASSETSDIR)/* $(BINDIR)/
-
-# Limpiar archivos generados
+# Limpieza
 clean:
-	rm -f $(OBJECTS) $(TARGET)
-
-# Ejecutar el juego
-run: $(TARGET) assets
-	./$(TARGET)
-
-# PHONY targets
-.PHONY: all clean run
+    rm -f $(OBJECTS) $(EXECUTABLE)
