@@ -4,23 +4,15 @@
 #include <SFML/Graphics.hpp>
 
 class Paleta {
-private:
-    sf::Sprite sprite;
-    sf::Texture textura;
-    float velocidad;
-    int contPuntos;
-
 public:
-    Paleta();
-    void setPosition(float x, float y);
-    void setTexture(const sf::Texture& texture);
-    void move(float offsetX, float offsetY);
-    sf::Vector2f getPosition() const;
-    sf::FloatRect getGlobalBounds() const;
-    void draw(sf::RenderWindow& ventana) const;
-    void aumentarPuntos();
-    int getPuntos() const;
-    // Otros métodos que puedas necesitar
+    Paleta(float posX, float posY, float rot);
+    void actualizar(bool arriba, bool abajo);
+    void dibujar(sf::RenderWindow& ventana);
+    sf::Sprite& getSprite();
+
+private:
+    sf::Texture paletaT;
+    sf::Sprite paleta;
 };
 
 #endif // PALETA_HPP
