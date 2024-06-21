@@ -4,15 +4,12 @@
 using namespace std;
 using namespace sf;
 
+// Declaración de variables globales
 Texture bolaT;
 Texture paletaT;
-
-Sprite bola;
-Sprite paletaD;
-Sprite paletaI;
-
 Font fuente;
 Text cD, cI;
+RenderWindow ventana;
 
 float velX = 2;
 float velY = 2;
@@ -21,19 +18,23 @@ int contI = 0;
 
 int main() {
     // Cargar texturas y fuente
-    if (!bolaT.loadFromFile("assets/ball.png")) {
+    if (!bolaT.loadFromFile("build/assets/ball.png")) {
         cout << "Error al cargar textura Bola" << endl;
     }
 
-    if (!paletaT.loadFromFile("assets/paddle.png")) {
+    if (!paletaT.loadFromFile("build/assets/paddle.png")) {
         cout << "Error al cargar textura Paleta" << endl;
     }
 
-    if (!fuente.loadFromFile("C:/windows/Fonts/White Love TTF")) {
+    if (!fuente.loadFromFile("buil/assets/font/White Love TTF")) {
         cout << "Error al cargar Fuente Pixel Art" << endl;
     }
 
     // Configurar sprites y textos
+    Sprite bola;
+    Sprite paletaD;
+    Sprite paletaI;
+
     bola.setTexture(bolaT);
     bola.setOrigin((float)bolaT.getSize().x / 2, (float)bolaT.getSize().y / 2);
     bola.setPosition(425, 250);
@@ -60,7 +61,7 @@ int main() {
     cI.setString(to_string(contI));
 
     // Configurar ventana
-    RenderWindow ventana(VideoMode(850, 500), "Pong");
+    ventana.create(VideoMode(850, 500), "Pong");
     ventana.setFramerateLimit(120);
 
     // Bucle principal del juego
@@ -73,7 +74,6 @@ int main() {
         }
 
         // Lógica de movimiento de la bola y colisiones
-
         bola.move(velX, velY);
 
         if (paletaD.getGlobalBounds().contains(bola.getPosition()) || paletaI.getGlobalBounds().contains(bola.getPosition())) {
