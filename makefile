@@ -1,23 +1,42 @@
-CC = g++
-CFLAGS = -std=c++11 -Iinclude
-SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+CXX = g++
+CXXFLAGS = -std=c++11 -Iinclude
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
-all: juego
+# Directorios
+SRCDIR = src
+OBJDIR = obj
+BINDIR = bin
+ASSETSDIR = assets
 
-juego: obj/main.o obj/Bola.o obj/Paleta.o obj/Marcador.o
-	$(CC) $(CFLAGS) obj/main.o obj/Bola.o obj/Paleta.o obj/Marcador.o -o bin/juego $(SFML_LIBS)
+# Archivos fuente y objetos
+SOURCES = $(wildcard $(SRCDIR)/*.cpp)
+OBJECTS = $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SOURCES))
 
-obj/main.o: src/main.cpp
-	$(CC) $(CFLAGS) -c src/main.cpp -o obj/main.o
+# Nombre del ejecutable
+TARGET = $(BINDIR)/juego
 
-obj/Bola.o: src/Bola.cpp include/Bola.hpp
-	$(CC) $(CFLAGS) -c src/Bola.cpp -o obj/Bola.o
+# Regla principal para construir el ejecutable
+all: $(TARGET)
 
-obj/Paleta.o: src/Paleta.cpp include/Paleta.hpp
-	$(CC) $(CFLAGS) -c src/Paleta.cpp -o obj/Paleta.o
+# Regla para compilar cada archivo objeto
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-obj/Marcador.o: src/Marcador.cpp include/Marcador.hpp
-	$(CC) $(CFLAGS) -c src/Marcador.cpp -o obj/Marcador.o
+# Regla para enlazar el ejecutable final
+$(TARGET): $(OBJECTS)
+	$(CXX) $(OBJECTS) -o $(TARGET) $(LIBS)
 
+# Regla para copiar assets al directorio bin/
+assets:
+	cp -r $(ASSETSDIR)/* $(BINDIR)/
+
+# Limpiar archivos generados
 clean:
-	rm -f obj/*.o bin/juego
+	rm -f $(OBJECTS) $(TARGET)
+
+# Ejecutar el juego
+run: $(TARGET) assets
+	./$(TARGET)
+
+# PHONY targets
+.PHONY: all clean run
