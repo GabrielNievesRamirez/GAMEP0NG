@@ -1,0 +1,3 @@
+/workspaces/GAMEP0NG/build/CMakeFiles/rebuild_cache.dir
+/workspaces/GAMEP0NG/build/CMakeFiles/edit_cache.dir
+/workspaces/GAMEP0NG/build/CMakeFiles/PongGame.dir
