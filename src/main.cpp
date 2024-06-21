@@ -7,8 +7,6 @@ using namespace sf;
 // Declaración de variables globales
 Texture bolaT;
 Texture paletaT;
-Font fuente;
-Text cD, cI;
 RenderWindow ventana;
 
 float velX = 2;
@@ -17,17 +15,13 @@ int contD = 0;
 int contI = 0;
 
 int main() {
-    // Cargar texturas y fuente
+    // Cargar texturas
     if (!bolaT.loadFromFile("build/assets/ball.png")) {
         cout << "Error al cargar textura Bola" << endl;
     }
 
     if (!paletaT.loadFromFile("build/assets/paddle.png")) {
         cout << "Error al cargar textura Paleta" << endl;
-    }
-
-    if (!fuente.loadFromFile("buil/assets/font/White Love TTF")) {
-        cout << "Error al cargar Fuente Pixel Art" << endl;
     }
 
     // Configurar sprites y textos
@@ -49,16 +43,6 @@ int main() {
     paletaI.setOrigin((float)paletaT.getSize().x / 2, (float)paletaT.getSize().y / 2);
     paletaI.setRotation(90);
     paletaI.setPosition(25, 250);
-
-    cD.setFont(fuente);
-    cD.setCharacterSize(40);
-    cD.setPosition((850 / 2) + (850 / 2) / 2, 25);
-    cD.setString(to_string(contD));
-
-    cI.setFont(fuente);
-    cI.setCharacterSize(40);
-    cI.setPosition((850 / 2) / 2, 25);
-    cI.setString(to_string(contI));
 
     // Configurar ventana
     ventana.create(VideoMode(850, 500), "Pong");
@@ -82,12 +66,14 @@ int main() {
             contI++;
             velX *= -1;
             bola.setPosition(425, 250);
-            cI.setString(to_string(contI));
+            // Actualizar contador
+            // cI.setString(to_string(contI));
         } else if (bola.getPosition().x < 0) {
             contD++;
             velX *= -1;
             bola.setPosition(425, 250);
-            cD.setString(to_string(contD));
+            // Actualizar contador
+            // cD.setString(to_string(contD));
         }
 
         if (bola.getPosition().y > 500 || bola.getPosition().y < 0) {
@@ -114,8 +100,7 @@ int main() {
         ventana.draw(bola);
         ventana.draw(paletaD);
         ventana.draw(paletaI);
-        ventana.draw(cD);
-        ventana.draw(cI);
+        // No dibujar textos porque no se está utilizando la fuente
         ventana.display();
     }
 

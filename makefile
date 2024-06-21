@@ -14,11 +14,11 @@ EXECUTABLE = $(BINDIR)/juego
 
 # Reglas de construcción
 $(EXECUTABLE): $(OBJECTS)
-    $(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXECUTABLE) -lsfml-graphics -lsfml-window -lsfml-system
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXECUTABLE) -lsfml-graphics -lsfml-window -lsfml-system
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-    $(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Limpieza
 clean:
-    rm -f $(OBJECTS) $(EXECUTABLE)
+	rm -f $(OBJECTS) $(EXECUTABLE)
